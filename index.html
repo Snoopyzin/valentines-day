@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabriel & Ábia 💜</title>
+  <style>
+    :root {
+      --purple: #7c3aed;
+      --purple-light: #a855f7;
+      --purple-glow: #c084fc;
+      --pink: #ec4899;
+      --bg: #0a0a0f;
+      --text: #f1f0f5;
+      --muted: #9ca3af;
+      --card: rgba(124,58,237,0.08);
+      --border: rgba(124,58,237,0.22);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 99px; }
+    ::selection { background: rgba(124,58,237,.35); color: #fff; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLL PROGRESS ── */
+    #scrollBar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--purple), var(--pink), var(--purple-glow));
+      z-index: 9999;
+      transition: width .05s linear;
+    }
+
+    /* ── BACKGROUND ── */
+    #bgStars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    .hero-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: .35;
+    }
+    .orb1 { width: 500px; height: 500px; background: var(--purple); top: -150px; right: -150px; animation: orbDrift 18s ease-in-out infinite; }
+    .orb2 { width: 400px; height: 400px; background: var(--pink);   bottom: 10%; left: -150px; animation: orbDrift 22s ease-in-out infinite reverse; }
+    .orb3 { width: 300px; height: 300px; background: #1d4ed8;        top: 40%;   right: -100px; animation: orbDrift 15s ease-in-out infinite 5s; }
+
+    @keyframes orbDrift {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(-30px, 40px) scale(1.08); }
+      66% { transform: translate(20px, -30px) scale(.95); }
+    }
+
+    /* ── PARTÍCULAS ── */
+    #particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .particle { position: absolute; opacity: 0; animation: floatUp linear infinite; }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10%  { opacity: .5; }
+      90%  { opacity: .25; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,10,15,0.75);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s;
+    }
+
+    .nav-logo {
+      font-size: 1.05rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--purple-light), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: .82rem;
+      transition: color .25s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1px; background: var(--purple-glow);
+      transform: scaleX(0); transition: transform .25s;
+    }
+    .nav-links a:hover { color: var(--purple-glow); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; position: relative; z-index: 1; padding: 2rem;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(124,58,237,.12);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: .4rem 1.2rem; font-size: .78rem; color: var(--purple-glow);
+      margin-bottom: 1.5rem; letter-spacing: .06em;
+      animation: badgePulse 3s ease-in-out infinite;
+    }
+
+    @keyframes badgePulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(192,132,252,.3); }
+      50% { box-shadow: 0 0 0 8px rgba(192,132,252,0); }
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 11vw, 7.5rem);
+      font-weight: 900; line-height: 1.02;
+      background: linear-gradient(135deg, #fff 20%, var(--purple-light) 55%, var(--pink) 90%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 1.2rem;
+      animation: gradientShift 5s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%,100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-sub {
+      font-size: clamp(.95rem, 2.2vw, 1.25rem);
+      color: var(--muted); max-width: 500px; line-height: 1.7; margin-bottom: 2.5rem;
+      min-height: 2.5em;
+    }
+
+    #typewriterCursor {
+      display: inline-block; width: 2px; height: 1.1em;
+      background: var(--purple-glow); margin-left: 2px;
+      animation: blink .7s step-end infinite; vertical-align: middle;
+    }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+    /* ── CONTADOR ── */
+    .counter-grid { display: flex; gap: .8rem; flex-wrap: wrap; justify-content: center; margin-bottom: 2.5rem; }
+
+    .counter-box {
+      background: rgba(124,58,237,.1);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1rem 1.4rem; text-align: center; min-width: 78px;
+      backdrop-filter: blur(8px);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .counter-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(124,58,237,.25);
+    }
+
+    .counter-num {
+      font-size: 2rem; font-weight: 800; color: var(--purple-glow);
+      display: block; line-height: 1;
+    }
+    .counter-label { font-size: .65rem; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-top: .3rem; display: block; }
+
+    .hero-scroll {
+      color: var(--muted); font-size: .78rem; cursor: pointer;
+      animation: bounce 2s ease-in-out infinite;
+      display: flex; flex-direction: column; align-items: center; gap: .3rem;
+    }
+    .hero-scroll-arrow { font-size: 1.2rem; }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+
+    /* ── SEÇÕES ── */
+    section { position: relative; z-index: 1; padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+
+    .section-tag {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(124,58,237,.1); border: 1px solid var(--border);
+      border-radius: 999px; padding: .35rem 1rem;
+      font-size: .73rem; color: var(--purple-glow); margin-bottom: 1rem; letter-spacing: .06em;
+    }
+
+    .section-title { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 800; margin-bottom: 1rem; }
+    .section-desc { color: var(--muted); max-width: 520px; line-height: 1.75; margin-bottom: 3rem; }
+
+    /* ── TIMELINE ── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--purple), var(--pink) 80%, transparent);
+      border-radius: 2px;
+    }
+
+    .tl-item {
+      position: relative; margin-bottom: 2.2rem;
+      opacity: 0; transform: translateX(-24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .tl-item.visible { opacity: 1; transform: translateX(0); }
+
+    .tl-dot {
+      position: absolute; left: -2.57rem; top: .35rem;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--purple-light); border: 2px solid var(--bg);
+      box-shadow: 0 0 0 0 rgba(168,85,247,.5);
+      animation: tlPulse 2.5s ease-out infinite;
+    }
+    @keyframes tlPulse {
+      0% { box-shadow: 0 0 0 0 rgba(168,85,247,.5); }
+      70% { box-shadow: 0 0 0 10px rgba(168,85,247,0); }
+      100% { box-shadow: 0 0 0 0 rgba(168,85,247,0); }
+    }
+
+    .tl-date { font-size: .72rem; color: var(--purple-glow); font-weight: 700; margin-bottom: .3rem; letter-spacing: .05em; }
+    .tl-card {
+      background: rgba(124,58,237,.07);
+      border: 1px solid var(--border);
+      border-radius: 1rem; padding: 1.2rem 1.5rem;
+      backdrop-filter: blur(8px);
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+    }
+    .tl-card:hover {
+      transform: translateX(6px);
+      box-shadow: 0 4px 24px rgba(124,58,237,.2);
+      border-color: rgba(168,85,247,.4);
+    }
+    .tl-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
+    .tl-card p { font-size: .87rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── GALERIA ── */
+    .gallery-grid {
+      columns: 3 180px;
+      column-gap: 1rem;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 1rem;
+      border-radius: 1rem; overflow: hidden;
+      position: relative; cursor: pointer;
+      opacity: 0; transform: scale(.93);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .gallery-item.visible { opacity: 1; transform: scale(1); }
+
+    .gallery-item img {
+      width: 100%; display: block;
+      transition: transform .45s cubic-bezier(.25,.46,.45,.94);
+    }
+    .gallery-item:hover img { transform: scale(1.07); }
+
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 55%);
+      opacity: 0; transition: opacity .35s;
+      display: flex; align-items: flex-end; padding: .9rem;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-caption { font-size: .78rem; font-weight: 600; color: #fff; }
+
+    .gallery-placeholder {
+      width: 100%; aspect-ratio: 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .5rem; background: var(--card); border: 1px dashed var(--border);
+      color: var(--muted); font-size: .8rem; text-align: center; padding: 1rem;
+      transition: all .3s;
+    }
+    .gallery-placeholder:hover { border-color: var(--purple-light); color: var(--purple-glow); }
+    .gallery-placeholder span { font-size: 2rem; }
+
+    /* Miles & Gwen special */
+    .gallery-item.easter-item {
+      position: relative;
+    }
+    .gallery-item.easter-item::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 2; border-radius: 1rem;
+      background: linear-gradient(135deg, #ff0080, #7700ff, #0080ff, #ff0080);
+      background-size: 300% 300%;
+      animation: spiderBorder 3s linear infinite;
+      padding: 2px;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+    }
+    @keyframes spiderBorder {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .easter-hint {
+      position: absolute; top: 8px; right: 8px; z-index: 3;
+      background: rgba(255,0,128,.85); color: #fff;
+      font-size: .6rem; font-weight: 800; letter-spacing: .05em;
+      padding: .2rem .55rem; border-radius: 999px;
+      animation: hintPulse 2s ease-in-out infinite;
+    }
+    @keyframes hintPulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: .8; }
+    }
+
+    /* ── CURIOSIDADES ── */
+    .curiosidades-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.1rem; }
+
+    .curio-card {
+      background: rgba(124,58,237,.07);
+      border: 1px solid var(--border);
+      border-radius: 1.2rem; padding: 1.8rem; text-align: center;
+      backdrop-filter: blur(8px);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease, box-shadow .3s;
+    }
+    .curio-card.visible { opacity: 1; transform: translateY(0); }
+    .curio-card:hover { box-shadow: 0 8px 32px rgba(124,58,237,.22); }
+
+    .curio-icon { font-size: 2.4rem; margin-bottom: .8rem; display: block; }
+    .curio-label { font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: var(--purple-glow); margin-bottom: .4rem; }
+    .curio-value { font-size: 1.4rem; font-weight: 800; }
+    .curio-sub { font-size: .78rem; color: var(--muted); margin-top: .3rem; }
+
+    /* ── CONQUISTAS ── */
+    .conquistas-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(195px, 1fr)); gap: 1rem; }
+
+    .conquista-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 1.2rem; padding: 1.5rem; text-align: center;
+      position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease, box-shadow .3s;
+    }
+    .conquista-card.visible { opacity: 1; transform: translateY(0); }
+
+    .conquista-card.unlocked {
+      border-color: var(--purple);
+      background: rgba(124,58,237,.14);
+    }
+    .conquista-card.unlocked:hover {
+      box-shadow: 0 0 32px rgba(168,85,247,.3);
+      transform: translateY(-4px) scale(1.01);
+    }
+    .conquista-card.unlocked::after {
+      content: '';
+      position: absolute; top: -50%; left: -50%;
+      width: 40%; height: 200%;
+      background: linear-gradient(105deg, transparent, rgba(255,255,255,.12), transparent);
+      transform: rotate(25deg);
+      animation: shine 4s ease-in-out infinite;
+    }
+    @keyframes shine {
+      0%,100% { left: -50%; }
+      50% { left: 150%; }
+    }
+
+    .conquista-icon { font-size: 2rem; margin-bottom: .8rem; display: block; }
+    .conquista-badge {
+      display: inline-block; background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff; font-size: .58rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; padding: .2rem .7rem; border-radius: 999px; margin-bottom: .5rem;
+    }
+    .conquista-name { font-size: .93rem; font-weight: 700; margin-bottom: .3rem; }
+    .conquista-desc { font-size: .77rem; color: var(--muted); line-height: 1.5; }
+    .conquista-locked .conquista-icon { filter: grayscale(1) opacity(.35); }
+    .conquista-locked .conquista-name { color: var(--muted); }
+
+    /* ── CARTA ── */
+    .letter-wrap { max-width: 680px; margin: 0 auto; }
+
+    .letter-card {
+      background: rgba(124,58,237,.07);
+      border: 1px solid var(--border);
+      border-radius: 1.5rem; padding: 3rem;
+      position: relative; overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+    .letter-card::before {
+      content: '"'; position: absolute; top: -1rem; left: 1.5rem;
+      font-size: 8rem; color: var(--purple); opacity: .12;
+      font-family: Georgia, serif; line-height: 1;
+    }
+    .letter-text {
+      font-size: 1.05rem; line-height: 1.95;
+      color: rgba(241,240,245,.92); font-style: italic;
+      position: relative; z-index: 1;
+    }
+    .letter-sign { margin-top: 2rem; text-align: right; color: var(--purple-glow); font-weight: 700; }
+
+    /* ── ESTRELAS ── */
+    .mapa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .stars-container { width: 100%; max-width: 400px; margin: 0 auto; aspect-ratio: 1; position: relative; }
+    #starCanvas {
+      width: 100%; height: 100%; border-radius: 50%;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 60px rgba(124,58,237,.2);
+    }
+    .stars-info { text-align: center; margin-top: 1.5rem; }
+    .stars-info p { color: var(--muted); font-size: .85rem; font-style: italic; margin-bottom: .3rem; }
+    .stars-date { color: var(--purple-glow); font-size: .8rem; font-weight: 600; }
+
+    /* ── LIGHTBOX ── */
+    #lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.93); z-index: 998;
+      align-items: center; justify-content: center;
+      flex-direction: column;
+    }
+    #lightbox.open { display: flex; animation: fadeIn .3s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    #lightboxImg {
+      max-width: 88vw; max-height: 80vh;
+      border-radius: .8rem; object-fit: contain;
+      box-shadow: 0 0 60px rgba(0,0,0,.6);
+    }
+    #lightboxCaption { color: rgba(255,255,255,.7); font-size: .85rem; margin-top: 1rem; }
+    #lightboxClose {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      color: rgba(255,255,255,.7); font-size: 2rem;
+      cursor: pointer; background: none; border: none; transition: color .2s;
+    }
+    #lightboxClose:hover { color: #fff; }
+    .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,.1); border: none; color: #fff;
+      font-size: 1.8rem; cursor: pointer; padding: 1rem .8rem;
+      border-radius: .5rem; backdrop-filter: blur(4px); transition: background .2s;
+    }
+    .lb-nav:hover { background: rgba(255,255,255,.2); }
+    #lbPrev { left: 1rem; }
+    #lbNext { right: 1rem; }
+
+    /* ── EASTER EGG ── */
+    #easterEgg {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      align-items: center; justify-content: center;
+      background: rgba(0,0,0,.97);
+    }
+    #easterEgg.open { display: flex; animation: eeOpen .4s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes eeOpen { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
+
+    .ee-modal {
+      position: relative; max-width: 480px; width: 92%;
+      background: #08000f;
+      border-radius: 1.5rem; overflow: hidden;
+      box-shadow: 0 0 0 2px #ff0080, 0 0 80px rgba(255,0,128,.35), 0 0 160px rgba(120,0,255,.2);
+    }
+
+    /* halftone bg */
+    .ee-modal::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,0,128,.12) 1px, transparent 1px);
+      background-size: 18px 18px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* diagonal color split */
+    .ee-modal::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,0,128,.08) 0%, transparent 50%, rgba(0,128,255,.08) 100%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .ee-close {
+      position: absolute; top: 1rem; right: 1rem; z-index: 10;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      color: #fff; width: 32px; height: 32px; border-radius: 50%;
+      font-size: .9rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .ee-close:hover { background: rgba(255,0,128,.4); }
+
+    .ee-top {
+      position: relative; z-index: 1;
+      background: linear-gradient(180deg, rgba(255,0,128,.25) 0%, transparent 100%);
+      padding: 1.5rem 1.5rem .5rem;
+      display: flex; align-items: center; gap: .6rem;
+    }
+    .ee-badge-txt {
+      font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+      color: #ff0080; text-shadow: 0 0 10px rgba(255,0,128,.8);
+    }
+    .ee-spider { font-size: 1.4rem; animation: spiderSpin 3s linear infinite; }
+    @keyframes spiderSpin { 0%,100%{ transform: rotate(0deg) scale(1); } 25%{ transform: rotate(-15deg) scale(1.1); } 75%{ transform: rotate(15deg) scale(.95); } }
+
+    .ee-photo {
+      position: relative; z-index: 1;
+      margin: 0 1.5rem .5rem;
+      border-radius: .8rem; overflow: hidden;
+      border: 2px solid rgba(255,0,128,.5);
+      box-shadow: 0 0 30px rgba(255,0,128,.3);
+    }
+    .ee-photo img { width: 100%; display: block; }
+
+    .ee-photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,0,15,.8) 0%, transparent 50%);
+    }
+
+    .ee-body { position: relative; z-index: 1; padding: 1rem 1.5rem 1.8rem; text-align: center; }
+
+    .ee-subtitle {
+      font-size: .68rem; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: rgba(255,255,255,.45);
+      margin-bottom: .4rem;
+    }
+
+    .ee-title {
+      font-size: 2rem; font-weight: 900; line-height: 1.1;
+      margin-bottom: .8rem;
+      background: linear-gradient(135deg, #ff0080, #ff66b2, #cc80ff, #0080ff);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: gradientShift 3s linear infinite;
+    }
+
+    .ee-text {
+      font-size: .88rem; color: rgba(255,255,255,.75); line-height: 1.7;
+      font-style: italic;
+    }
+
+    .ee-text strong { color: #ff99cc; -webkit-text-fill-color: #ff99cc; font-style: normal; }
+
+    .ee-confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1; text-align: center; padding: 4rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .footer-heart { font-size: 2rem; display: block; margin-bottom: .5rem; animation: heartbeat 1.6s ease-in-out infinite; }
+    @keyframes heartbeat {
+      0%,100% { transform: scale(1); }
+      14% { transform: scale(1.22); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.15); }
+    }
+    footer p { color: var(--muted); font-size: .85rem; }
+
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    /* ── REVEAL ── */
+    .fade-in { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 640px) {
+      .mapa-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .gallery-grid { columns: 2 140px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="scrollBar"></div>
+<canvas id="bgStars"></canvas>
+<div class="hero-orb orb1"></div>
+<div class="hero-orb orb2"></div>
+<div class="hero-orb orb3"></div>
+<div id="particles"></div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightboxClose" onclick="closeLightbox()">✕</button>
+  <button class="lb-nav" id="lbPrev" onclick="lbNav(-1)">‹</button>
+  <img id="lightboxImg" src="" alt="" />
+  <div id="lightboxCaption"></div>
+  <button class="lb-nav" id="lbNext" onclick="lbNav(1)">›</button>
+</div>
+
+<!-- EASTER EGG MODAL -->
+<div id="easterEgg">
+  <div class="ee-modal">
+    <button class="ee-close" onclick="closeEasterEgg()">✕</button>
+    <div class="ee-top">
+      <span class="ee-spider">🕷️</span>
+      <span class="ee-badge-txt">Easter Egg Desbloqueado!</span>
+    </div>
+    <div class="ee-photo">
+      <img src="images/miles e gwen.jpeg" alt="Miles & Gwen" />
+      <div class="ee-photo-overlay"></div>
+    </div>
+    <div class="ee-body">
+      <div class="ee-subtitle">Across the Spider-Verse</div>
+      <div class="ee-title">Across the Universe</div>
+      <p class="ee-text">
+        Assim como <strong>Miles & Gwen</strong> se amaram por todo o multiverso,
+        <strong>Gabriel & Ábia</strong> provam que o amor verdadeiro
+        atravessa qualquer distância, qualquer dimensão. 💗
+      </p>
+    </div>
+    <div class="ee-confetti" id="eeConfetti"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Gabriel & Ábia 💜</div>
+  <ul class="nav-links">
+    <li><a href="#timeline">Linha do Tempo</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#estrelas">Estrelas</a></li>
+    <li><a href="#curiosidades">Curiosidades</a></li>
+    <li><a href="#conquistas">Conquistas</a></li>
+    <li><a href="#carta">Carta</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">💜 Dia dos Namorados 2026</div>
+  <h1>Gabriel<br>& Ábia</h1>
+  <p class="hero-sub"><span id="typewriter"></span><span id="typewriterCursor"></span></p>
+  <div class="counter-grid" id="counterGrid"></div>
+  <div class="hero-scroll" onclick="document.getElementById('timeline').scrollIntoView({behavior:'smooth'})">
+    <span>Nossa história começa aqui</span>
+    <span class="hero-scroll-arrow">↓</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section id="timeline">
+  <div class="section-tag">📅 Nossa Jornada</div>
+  <h2 class="section-title fade-in">Linha do Tempo</h2>
+  <p class="section-desc fade-in">Cada marco que nos trouxe até aqui, gravado para sempre.</p>
+  <div class="timeline" id="tlContainer"></div>
+</section>
+
+<div class="divider"></div>
+
+<section id="galeria">
+  <div class="section-tag">📸 Nossas Fotos</div>
+  <h2 class="section-title fade-in">Galeria de Memórias</h2>
+  <p class="section-desc fade-in">Os momentos que ficam gravados no coração — e agora também aqui.</p>
+  <div class="gallery-grid" id="galleryGrid"></div>
+</section>
+
+<div class="divider"></div>
+
+<section id="estrelas">
+  <div class="mapa-grid">
+    <div>
+      <div class="section-tag">✨ Céu Especial</div>
+      <h2 class="section-title fade-in">Mapa das Estrelas</h2>
+      <p class="section-desc fade-in">O céu como estava no dia em que tudo começou. Um mapa celestial único do momento em que nossas vidas se encontraram.</p>
+      <div class="stars-info">
+        <p>"O céu registrou o momento em que tudo começou"</p>
+        <div class="stars-date" id="starsDate"></div>
+      </div>
+    </div>
+    <div>
+      <div class="stars-container">
+        <canvas id="starCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="curiosidades">
+  <div class="section-tag">✦ Você Sabia?</div>
+  <h2 class="section-title fade-in">Curiosidades</h2>
+  <p class="section-desc fade-in">Alguns fatos mágicos sobre o nosso relacionamento.</p>
+  <div class="curiosidades-grid" id="curiosGrid"></div>
+</section>
+
+<div class="divider"></div>
+
+<section id="conquistas">
+  <div class="section-tag">🏆 Marcos Especiais</div>
+  <h2 class="section-title fade-in">Conquistas</h2>
+  <p class="section-desc fade-in">Cada etapa da nossa história merece ser celebrada.</p>
+  <div class="conquistas-grid" id="conquistasGrid"></div>
+</section>
+
+<div class="divider"></div>
+
+<section id="carta">
+  <div class="section-tag">💌 Para Ábia</div>
+  <h2 class="section-title fade-in" style="text-align:center">Uma carta de amor</h2>
+  <div class="letter-wrap fade-in">
+    <div class="letter-card">
+      <p class="letter-text" id="letterText"></p>
+      <div class="letter-sign">Com amor, Gabriel 💜</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-heart">💜</span>
+  <p>Feito com amor por Gabriel, para Ábia.</p>
+  <p style="margin-top:.4rem;font-size:.75rem;">Feliz Dia dos Namorados 💜</p>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════
+   CONFIGURAÇÃO
+════════════════════════════════════════════ */
+const START_DATE = new Date(2026, 3, 3);
+
+const TIMELINE = [
+  { date: "3 de Abril de 2026",  title: "Ela disse que gostava 💜",  text: "O dia em que Ábia teve coragem de dizer o que sentia — e tudo mudou para sempre." },
+  { date: "13 de Abril de 2026", title: "Eu disse que amava 🥺",      text: "Gabriel olhou nos olhos dela e disse 'eu te amo' pela primeira vez. Palavras que ficam." },
+  { date: "18 de Abril de 2026", title: "Nossa primeira saída 🌙",     text: "O primeiro programa juntos — e a certeza de que queria estar sempre ao lado dela." },
+  { date: "1 de Maio de 2026",   title: "Nosso primeiro beijo 💋",     text: "O beijo que selou tudo. Um momento que nenhum dos dois vai esquecer." },
+  { date: "Hoje — " + new Date().toLocaleDateString('pt-BR', {day:'numeric',month:'long',year:'numeric'}), title: "Dia dos Namorados 2026 💜", text: "Mais um dia pra te dizer: você é o maior presente da minha vida." }
+];
+
+const PHOTOS = [
+  { src: "images/primeiro encontro.jpeg", caption: "Primeiro Encontro 🌙",    easter: false },
+  { src: "images/almoço.jpeg",            caption: "Almoço Especial 🍽️",      easter: false },
+  { src: "images/curtindo a familia.jpeg",caption: "Curtindo a Família 💜",   easter: false },
+  { src: "images/curtindo a rede.jpeg",   caption: "Curtindo a Rede 😌",      easter: false },
+  { src: "images/presente especial.jpeg", caption: "Presente Especial 🎁",    easter: false },
+  { src: "images/miles e gwen.jpeg",      caption: "Miles & Gwen 🕷️",         easter: true  },
+];
+
+const LETTER = `Ábia,
+
+Existem momentos na vida que mudam tudo — e o dia em que você disse que gostava de mim foi um desses.
+
+Você me faz sorrir quando menos espero, me faz sentir em casa só de estar perto de você. Cada beijo, cada saída, cada mensagem sua é um presente que eu não merecia, mas que agradeço todos os dias.
+
+Você é a pessoa mais bonita que já conheci — por fora e por dentro. E eu quero continuar descobrindo novos motivos para te amar, todos os dias.
+
+Feliz Dia dos Namorados, meu amor.`;
+
+/* ════════════════════════════════════════════
+   SCROLL PROGRESS
+════════════════════════════════════════════ */
+const scrollBar = document.getElementById('scrollBar');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  scrollBar.style.width = pct + '%';
+}, { passive: true });
+
+/* ════════════════════════════════════════════
+   FUNDO ESTRELADO (com cintilação)
+════════════════════════════════════════════ */
+(function () {
+  const canvas = document.getElementById('bgStars');
+  const ctx = canvas.getContext('2d');
+  const stars = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    stars.length = 0;
+    for (let i = 0; i < 220; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.3 + .2,
+        base: Math.random() * .6 + .1,
+        phase: Math.random() * Math.PI * 2,
+        speed: Math.random() * .02 + .005
+      });
+    }
+  }
+
+  let t = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    t += 1;
+    stars.forEach(s => {
+      const brightness = s.base + Math.sin(s.phase + t * s.speed) * 0.25;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${brightness})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+})();
+
+/* ════════════════════════════════════════════
+   PARTÍCULAS
+════════════════════════════════════════════ */
+(function () {
+  const c = document.getElementById('particles');
+  const e = ['💜', '✨', '💫', '🌸', '💕', '⭐'];
+  for (let i = 0; i < 22; i++) {
+    const el = document.createElement('div');
+    el.className = 'particle';
+    el.textContent = e[Math.floor(Math.random() * e.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.fontSize = (Math.random() * .8 + .5) + 'rem';
+    el.style.animationDuration = (Math.random() * 15 + 10) + 's';
+    el.style.animationDelay = (Math.random() * 20) + 's';
+    c.appendChild(el);
+  }
+})();
+
+/* ════════════════════════════════════════════
+   TYPEWRITER
+════════════════════════════════════════════ */
+(function () {
+  const text = "Cada momento compartilhado, cada sorriso, cada abraço — tudo registrado aqui para nunca esquecer.";
+  const el = document.getElementById('typewriter');
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      el.textContent += text[i++];
+      setTimeout(type, 38 + Math.random() * 25);
+    } else {
+      document.getElementById('typewriterCursor').style.display = 'none';
+    }
+  }
+  setTimeout(type, 800);
+})();
+
+/* ════════════════════════════════════════════
+   CONTADOR (live, com animação countUp)
+════════════════════════════════════════════ */
+(function () {
+  const grid = document.getElementById('counterGrid');
+  const labels = ['Anos','Meses','Dias','Horas'];
+  const nums = [];
+
+  labels.forEach(l => {
+    const box = document.createElement('div');
+    box.className = 'counter-box';
+    const span = document.createElement('span');
+    span.className = 'counter-num';
+    span.textContent = '0';
+    const lbl = document.createElement('span');
+    lbl.className = 'counter-label';
+    lbl.textContent = l;
+    box.appendChild(span);
+    box.appendChild(lbl);
+    grid.appendChild(box);
+    nums.push(span);
+  });
+
+  function getValues() {
+    const diff = Date.now() - START_DATE.getTime();
+    const days = Math.floor(diff / 864e5);
+    const months = Math.floor(days / 30.44);
+    return [Math.floor(months / 12), months % 12, days % 30, Math.floor(diff / 36e5)];
+  }
+
+  // CountUp animation on first load
+  const targets = getValues();
+  const duration = 1400;
+  const start = performance.now();
+
+  function animate(ts) {
+    const elapsed = ts - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    targets.forEach((t, i) => {
+      nums[i].textContent = Math.round(t * ease).toLocaleString();
+    });
+    if (progress < 1) requestAnimationFrame(animate);
+    else nums.forEach((el, i) => el.textContent = targets[i].toLocaleString());
+  }
+  setTimeout(() => requestAnimationFrame(animate), 600);
+})();
+
+/* ════════════════════════════════════════════
+   TIMELINE
+════════════════════════════════════════════ */
+(function () {
+  const container = document.getElementById('tlContainer');
+  TIMELINE.forEach((item, i) => {
+    const el = document.createElement('div');
+    el.className = 'tl-item';
+    el.style.transitionDelay = (i * 0.1) + 's';
+    el.innerHTML = `
+      <div class="tl-dot"></div>
+      <div class="tl-date">${item.date}</div>
+      <div class="tl-card">
+        <h3>${item.title}</h3>
+        <p>${item.text}</p>
+      </div>`;
+    container.appendChild(el);
+  });
+})();
+
+/* ════════════════════════════════════════════
+   GALERIA + LIGHTBOX
+════════════════════════════════════════════ */
+const galleryPhotos = PHOTOS.filter(p => !p.easter || true); // include all
+let lbIndex = 0;
+const lbPhotos = PHOTOS.filter(p => !p.easter); // lightbox skips easter
+
+(function () {
+  const grid = document.getElementById('galleryGrid');
+  PHOTOS.forEach((photo, i) => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item' + (photo.easter ? ' easter-item' : '');
+    item.style.transitionDelay = (i * 0.08) + 's';
+
+    if (photo.src) {
+      if (photo.easter) {
+        item.innerHTML = `
+          <div class="easter-hint">🕷️ Clique!</div>
+          <img src="${photo.src}" alt="${photo.caption}" loading="lazy">
+          <div class="gallery-overlay"><span class="gallery-caption">${photo.caption}</span></div>`;
+        item.addEventListener('click', openEasterEgg);
+      } else {
+        const lbIdx = lbPhotos.findIndex(p => p.src === photo.src);
+        item.innerHTML = `
+          <img src="${photo.src}" alt="${photo.caption}" loading="lazy">
+          <div class="gallery-overlay"><span class="gallery-caption">${photo.caption}</span></div>`;
+        item.addEventListener('click', () => openLightbox(lbIdx));
+      }
+    } else {
+      item.innerHTML = `
+        <div class="gallery-placeholder">
+          <span>📸</span>
+          <div>${photo.caption}</div>
+        </div>`;
+    }
+    grid.appendChild(item);
+  });
+})();
+
+function openLightbox(idx) {
+  lbIndex = idx;
+  const photo = lbPhotos[lbIndex];
+  document.getElementById('lightboxImg').src = photo.src;
+  document.getElementById('lightboxCaption').textContent = photo.caption;
+  document.getElementById('lightbox').classList.add('open');
+  document.getElementById('lbPrev').style.display = lbIndex === 0 ? 'none' : '';
+  document.getElementById('lbNext').style.display = lbIndex === lbPhotos.length - 1 ? 'none' : '';
+}
+
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+
+function lbNav(dir) { openLightbox(lbIndex + dir); }
+
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target.id === 'lightbox') closeLightbox();
+});
+
+/* ════════════════════════════════════════════
+   EASTER EGG — Miles & Gwen (Spider-Verse)
+════════════════════════════════════════════ */
+function openEasterEgg() {
+  const overlay = document.getElementById('easterEgg');
+  overlay.classList.add('open');
+  spawnSpiderConfetti();
+}
+
+function closeEasterEgg() {
+  document.getElementById('easterEgg').classList.remove('open');
+  document.getElementById('eeConfetti').innerHTML = '';
+}
+
+document.getElementById('easterEgg').addEventListener('click', e => {
+  if (e.target.id === 'easterEgg') closeEasterEgg();
+});
+
+function spawnSpiderConfetti() {
+  const container = document.getElementById('eeConfetti');
+  container.innerHTML = '';
+  const pieces = ['🕷️','💗','🌀','✨','💜','🕸️','⭐','💗'];
+  for (let i = 0; i < 30; i++) {
+    const el = document.createElement('div');
+    el.style.cssText = `
+      position:absolute;
+      font-size:${Math.random() * .8 + .6}rem;
+      left:${Math.random() * 100}%;
+      top:${Math.random() * 100}%;
+      opacity:0;
+      animation: eeFall ${Math.random() * 2 + 1.5}s ease ${Math.random() * 1}s forwards;
+    `;
+    el.textContent = pieces[Math.floor(Math.random() * pieces.length)];
+    container.appendChild(el);
+  }
+
+  // inject keyframes once
+  if (!document.getElementById('eeKf')) {
+    const style = document.createElement('style');
+    style.id = 'eeKf';
+    style.textContent = `
+      @keyframes eeFall {
+        0%   { opacity: 0; transform: translateY(-20px) rotate(0deg); }
+        20%  { opacity: 1; }
+        100% { opacity: 0; transform: translateY(60px) rotate(360deg); }
+      }`;
+    document.head.appendChild(style);
+  }
+}
+
+/* ════════════════════════════════════════════
+   MAPA DAS ESTRELAS
+════════════════════════════════════════════ */
+(function () {
+  const canvas = document.getElementById('starCanvas');
+  const ctx = canvas.getContext('2d');
+  const size = 400;
+  canvas.width = size; canvas.height = size;
+  const cx = size / 2, cy = size / 2, r = size / 2 - 10;
+
+  // background
+  const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+  grad.addColorStop(0, '#1a1035');
+  grad.addColorStop(1, '#060412');
+  ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = grad; ctx.fill();
+
+  // grid
+  ctx.strokeStyle = 'rgba(124,58,237,0.15)'; ctx.lineWidth = 1;
+  for (let ri = 1; ri <= 4; ri++) {
+    ctx.beginPath(); ctx.arc(cx, cy, r * ri / 4, 0, Math.PI * 2); ctx.stroke();
+  }
+  for (let a = 0; a < 12; a++) {
+    const ang = (a / 12) * Math.PI * 2;
+    ctx.beginPath(); ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + r * Math.cos(ang), cy + r * Math.sin(ang)); ctx.stroke();
+  }
+
+  // stars (seeded)
+  const seed = START_DATE.getTime();
+  const sr = n => { const x = Math.sin(n + seed) * 10000; return x - Math.floor(x); };
+
+  const starData = [];
+  for (let i = 0; i < 180; i++) {
+    const ang = sr(i * 3.1) * Math.PI * 2;
+    const dist = sr(i * 5.7) * r;
+    starData.push({ x: cx + dist * Math.cos(ang), y: cy + dist * Math.sin(ang), sz: sr(i * 7.3) * 2.5 + .5, bright: sr(i * 11.9) * .7 + .3, phase: sr(i * 13.7) * Math.PI * 2 });
+  }
+
+  // constellation heart
+  const hp = [[0,-25],[15,-38],[30,-30],[30,-10],[0,20],[-30,-10],[-30,-30],[-15,-38]];
+
+  function drawMap(t) {
+    ctx.clearRect(0, 0, size, size);
+    ctx.save();
+    ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.clip();
+    ctx.fillStyle = grad; ctx.fillRect(0, 0, size, size);
+
+    ctx.strokeStyle = 'rgba(124,58,237,0.15)'; ctx.lineWidth = 1;
+    for (let ri = 1; ri <= 4; ri++) { ctx.beginPath(); ctx.arc(cx, cy, r * ri / 4, 0, Math.PI * 2); ctx.stroke(); }
+    for (let a = 0; a < 12; a++) {
+      const ang = (a / 12) * Math.PI * 2;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(cx + r * Math.cos(ang), cy + r * Math.sin(ang)); ctx.stroke();
+    }
+
+    // twinkling stars
+    starData.forEach(s => {
+      const b = s.bright + Math.sin(s.phase + t * .015) * 0.2;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.sz, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,255,255,${Math.max(0, b)})`; ctx.fill();
+      if (s.sz > 1.8) {
+        ctx.beginPath(); ctx.arc(s.x, s.y, s.sz * 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200,180,255,${b * .12})`; ctx.fill();
+      }
+    });
+
+    // constellation
+    ctx.strokeStyle = 'rgba(168,85,247,0.5)'; ctx.lineWidth = 1;
+    hp.forEach(([hx, hy], idx) => {
+      const px = cx + hx, py = cy + hy;
+      ctx.beginPath(); ctx.arc(px, py, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#c084fc'; ctx.fill();
+      if (idx > 0) {
+        const [px2, py2] = hp[idx - 1];
+        ctx.beginPath(); ctx.moveTo(cx + px2, cy + py2); ctx.lineTo(px, py); ctx.stroke();
+      }
+    });
+
+    ctx.restore();
+  }
+
+  let frame = 0;
+  (function anim() { drawMap(frame++); requestAnimationFrame(anim); })();
+
+  document.getElementById('starsDate').textContent =
+    START_DATE.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+})();
+
+/* ════════════════════════════════════════════
+   CURIOSIDADES
+════════════════════════════════════════════ */
+(function () {
+  const diff = Date.now() - START_DATE.getTime();
+  const days = Math.floor(diff / 864e5);
+
+  const lc = 29.53;
+  const kn = new Date(2000, 0, 6);
+  const dsn = (START_DATE - kn) / 864e5;
+  const phase = ((dsn % lc) + lc) % lc;
+  const moon = phase < 1.85 ? ['🌑','Lua Nova'] : phase < 7.38 ? ['🌒','Crescente'] : phase < 9.22 ? ['🌓','Quarto Crescente'] : phase < 14.76 ? ['🌔','Crescente Gibosa'] : phase < 16.61 ? ['🌕','Lua Cheia'] : phase < 22.15 ? ['🌖','Minguante Gibosa'] : phase < 23.99 ? ['🌗','Quarto Minguante'] : ['🌘','Minguante'];
+  const dow = START_DATE.toLocaleDateString('pt-BR', { weekday: 'long' });
+
+  const items = [
+    { icon:'🌙', label:'Fase da Lua',     value: moon[0]+' '+moon[1], sub:'no dia em que começamos' },
+    { icon:'📅', label:'Dia da semana',   value: dow[0].toUpperCase()+dow.slice(1), sub:'quando tudo começou' },
+    { icon:'💜', label:'Dias juntos',     value: days.toLocaleString(), sub:'dias de amor até hoje' },
+    { icon:'💋', label:'Beijos estimados',value: (days*8).toLocaleString()+'+', sub:'e cada um deles especial' },
+    { icon:'⭐', label:'Estrelas visíveis',value:'~9.100', sub:'no céu na nossa primeira noite' },
+    { icon:'🌍', label:'A Terra girou',   value: days+' vezes', sub:'desde que nos encontramos' },
+  ];
+
+  const grid = document.getElementById('curiosGrid');
+  items.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'curio-card';
+    card.style.transitionDelay = (i * 0.1) + 's';
+    card.innerHTML = `<span class="curio-icon">${c.icon}</span><div class="curio-label">${c.label}</div><div class="curio-value">${c.value}</div><div class="curio-sub">${c.sub}</div>`;
+    grid.appendChild(card);
+  });
+})();
+
+/* ════════════════════════════════════════════
+   CONQUISTAS
+════════════════════════════════════════════ */
+(function () {
+  const days = Math.floor((Date.now() - START_DATE.getTime()) / 864e5);
+  const all = [
+    { icon:'🌱', req:1,    name:'Primeiro Dia',     desc:'O começo de uma história linda.' },
+    { icon:'💜', req:7,    name:'Uma Semana',        desc:'7 dias de alegria e cumplicidade.' },
+    { icon:'🌙', req:30,   name:'Um Mês',            desc:'Um mês inteiro ao lado de quem amo.' },
+    { icon:'🌸', req:100,  name:'100 Dias',          desc:'Cem dias de amor e carinho.' },
+    { icon:'🌟', req:180,  name:'Seis Meses',        desc:'Meio ano construindo algo especial.' },
+    { icon:'🎉', req:365,  name:'Nosso Aniversário', desc:'Um ano inteiro juntos!' },
+    { icon:'💍', req:730,  name:'Dois Anos',         desc:'Dois anos de uma história bonita.' },
+    { icon:'👑', req:1095, name:'Três Anos',         desc:'Três anos provando que somos pra sempre.' },
+  ];
+
+  const grid = document.getElementById('conquistasGrid');
+  all.forEach((c, i) => {
+    const ok = days >= c.req;
+    const card = document.createElement('div');
+    card.className = `conquista-card ${ok ? 'unlocked' : 'conquista-locked'}`;
+    card.style.transitionDelay = (i * 0.08) + 's';
+    card.innerHTML = `
+      <span class="conquista-icon">${c.icon}</span>
+      ${ok ? '<span class="conquista-badge">Desbloqueada ✓</span>' : '<span class="conquista-badge" style="background:rgba(100,100,120,.4)">Em breve</span>'}
+      <div class="conquista-name">${c.name}</div>
+      <div class="conquista-desc">${c.desc}</div>`;
+    grid.appendChild(card);
+  });
+})();
+
+/* ════════════════════════════════════════════
+   CARTA
+════════════════════════════════════════════ */
+document.getElementById('letterText').innerHTML = LETTER.replace(/\n/g, '<br>');
+
+/* ════════════════════════════════════════════
+   SCROLL ANIMATIONS (IntersectionObserver)
+════════════════════════════════════════════ */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in, .tl-item, .gallery-item, .curio-card, .conquista-card')
+  .forEach(el => observer.observe(el));
+
+/* ── Keyboard ESC closes modals ── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeLightbox(); closeEasterEgg(); }
+});
+</script>
+</body>
+</html>
